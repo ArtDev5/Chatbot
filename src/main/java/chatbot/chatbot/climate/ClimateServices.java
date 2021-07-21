@@ -4,11 +4,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class Climate {
+public class ClimateServices {
 
     private final RestTemplate restTemplate;
 
-    public Climate(RestTemplate restTemplate){
+    public ClimateServices(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
     }
 

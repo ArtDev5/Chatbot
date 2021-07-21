@@ -13,5 +13,5 @@ public class QueryResult {
     private String queryText;
     private String fulfillmentText;
     private IntentDialogflow intent;
-
+    private ParametersDialogflow parameters;
 }

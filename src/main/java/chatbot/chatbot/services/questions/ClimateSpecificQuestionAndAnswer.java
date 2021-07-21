@@ -14,6 +14,6 @@ public class ClimateSpecificQuestionAndAnswer implements Question {
 
     @Override
     public String getAnswer(Message message) {
-        return "Me informe a data e o local.\nExemplo: 14/08/2021 - São Paulo";
+        return "Me informe o dia e o local.";
     }
 }

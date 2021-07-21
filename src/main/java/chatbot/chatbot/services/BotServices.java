@@ -1,6 +1,6 @@
 package chatbot.chatbot.services;
 
-import chatbot.chatbot.dialogflow.Dialogflow;
+import chatbot.chatbot.dialogflow.DialogflowServices;
 import chatbot.chatbot.dialogflow.DialogflowMessage;
 import chatbot.chatbot.dialogflow.Message;
 import chatbot.chatbot.interfaces.Question;
@@ -12,14 +12,16 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
+
 @Service
 public class BotServices {
 
     private final RestTemplate restTemplate;
-    private final Dialogflow dialogflow;
+    private final DialogflowServices dialogflow;
     private final QuestionsAndAnswers questionsAndAnswers;
 
-    public BotServices(RestTemplate restTemplate, Dialogflow dialogflow, QuestionsAndAnswers questionsAndAnswers){
+    public BotServices(RestTemplate restTemplate, DialogflowServices dialogflow, QuestionsAndAnswers questionsAndAnswers){
         this.restTemplate = restTemplate;
         this.dialogflow = dialogflow;
         this.questionsAndAnswers = questionsAndAnswers;
@@ -42,7 +44,11 @@ public class BotServices {
     private String getAnswer(String userMessage){
 
         DialogflowMessage dialogflowMessage = dialogflow.getIntentAndEntityFromDialogflow(userMessage);
-        Message message = new Message(dialogflowMessage);
+        String intent = dialogflowMessage.getIntent();
+        String city = dialogflowMessage.getCity();
+        Date date = dialogflowMessage.getDate();
+
+        Message message = new Message(intent, city, date);
 
         for(Question values: questionsAndAnswers.getQuestionsWithAnswers()){
             if(values.verifyIntent(message)){

@@ -1,18 +1,21 @@
 package chatbot.chatbot.services.questions;
 
-import chatbot.chatbot.climate.Climate;
+import chatbot.chatbot.climate.ClimateServices;
 import chatbot.chatbot.climate.ResponseClimate;
 import chatbot.chatbot.dialogflow.Message;
 import chatbot.chatbot.interfaces.Question;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Component
 public class ClimateDateAndLocationQuestionAndAnswer implements Question {
 
-    private final Climate climate;
+    private final ClimateServices climateServices;
 
-    public ClimateDateAndLocationQuestionAndAnswer(Climate climate){
-        this.climate = climate;
+    public ClimateDateAndLocationQuestionAndAnswer(ClimateServices climateServices){
+        this.climateServices = climateServices;
     }
 
     @Override
@@ -23,24 +26,17 @@ public class ClimateDateAndLocationQuestionAndAnswer implements Question {
     @Override
     public String getAnswer(Message message) {
 
-        String userMessage = message.getUserMessage();
+        Date userDate = message.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String userDateFormatted = dateFormat.format(userDate);
+        String userCity = message.getCity();
 
-        String userDate = userMessage.substring(0, 10);
-        String userLocation = userMessage.substring(10);
-        String dataRegex = "^\\d{2}\\/\\d{2}\\/\\d{4}$";
-
-        if (userDate.matches(dataRegex)) {
-            return createAnswer(userDate, userLocation);
-
-        }
-        return "Informe uma data válida (dd/mm/yyyy)";
+        return createAnswer(userDateFormatted, userCity);
     }
 
-    private String createAnswer(String userDate, String userLocation){
+    private String createAnswer(String userDate, String userCity){
 
-
-
-        ResponseClimate responseClimate = climate.getClimate(userDate, userLocation);
+        ResponseClimate responseClimate = climateServices.getClimate(userDate, userCity);
 
         if (responseClimate.getMax() == 0 && responseClimate.getMin() == 0) {
             return "Informe uma data dentro do limite, sendo do dia atual até 10 dias.";

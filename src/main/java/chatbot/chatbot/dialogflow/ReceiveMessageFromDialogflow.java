@@ -12,5 +12,4 @@ import lombok.ToString;
 public class ReceiveMessageFromDialogflow {
     private String responseId;
     private QueryResult queryResult;
-
 }

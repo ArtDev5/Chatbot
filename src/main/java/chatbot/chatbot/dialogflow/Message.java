@@ -1,20 +1,22 @@
 package chatbot.chatbot.dialogflow;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class Message {
-    private String userMessage;
     private String intent;
+    private String city;
+    private Date date;
 
-    public Message(DialogflowMessage dialogflowMessage) {
-        userMessage = dialogflowMessage.getUserMessage();
-        intent = dialogflowMessage.getIntent();
+    public Message(String intent, String city, Date date) {
+        this.intent = intent;
+        this.city = city;
+        this.date = date;
     }
 }

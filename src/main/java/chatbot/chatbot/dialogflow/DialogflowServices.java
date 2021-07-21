@@ -1,7 +1,5 @@
 package chatbot.chatbot.dialogflow;
 
-import chatbot.chatbot.climate.Climate;
-import chatbot.chatbot.services.questions.QuestionsAndAnswers;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -19,7 +17,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.util.Date;
 
 @Service
-public class Dialogflow {
+public class DialogflowServices {
 
     @Value("${dialogflowUrl}")
     private String dialogflowUrl;
@@ -32,10 +30,10 @@ public class Dialogflow {
 
     private final RestTemplate restTemplate;
 
-    public Dialogflow(RestTemplate restTemplate){
+    public DialogflowServices(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
     }
-    //TODO information
+
     public DialogflowMessage getIntentAndEntityFromDialogflow(String userMessage){
 
         String jwtAssigned = getSignedJWT();

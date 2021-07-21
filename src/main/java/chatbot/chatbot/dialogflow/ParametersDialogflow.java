@@ -6,12 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class RequestDialogflow {
-    @JsonProperty("query_input")
-    private String queryInput;
-    private TextDialogflow text;
+public class ParametersDialogflow {
+    private Date date;
+    @JsonProperty("location")
+    private LocationDialogflow location;
 }

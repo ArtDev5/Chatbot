@@ -5,20 +5,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class DialogflowMessage {
-    private String responseId;
-    private String userMessage;
-    private String dialogflowAnswer;
     private String intent;
+    private String city;
+    private Date date;
 
     public DialogflowMessage(ReceiveMessageFromDialogflow event) {
-        responseId = event.getResponseId();
-        userMessage = event.getQueryResult().getQueryText();
-        dialogflowAnswer = event.getQueryResult().getFulfillmentText();
         intent = event.getQueryResult().getIntent().getDisplayName();
+        if(intent.equals("ClimateSpecific - DateAndLocation")){
+            date = event.getQueryResult().getParameters().getDate();
+            city = event.getQueryResult().getParameters().getLocation().getCity();
+        }
     }
 }
