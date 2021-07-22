@@ -9,12 +9,10 @@ import chatbot.chatbot.messenger.ResponseEvent;
 import chatbot.chatbot.services.questions.QuestionsAndAnswers;
 import org.springframework.http.HttpEntity;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 
-@Service
 public class BotServices {
 
     private final RestTemplate restTemplate;

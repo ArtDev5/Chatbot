@@ -4,12 +4,10 @@ import chatbot.chatbot.climate.ClimateServices;
 import chatbot.chatbot.climate.ResponseClimate;
 import chatbot.chatbot.dialogflow.Message;
 import chatbot.chatbot.interfaces.Question;
-import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Component
 public class ClimateDateAndLocationQuestionAndAnswer implements Question {
 
     private final ClimateServices climateServices;

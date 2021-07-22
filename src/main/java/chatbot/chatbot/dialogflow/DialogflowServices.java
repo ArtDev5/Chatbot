@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.FileInputStream;
@@ -16,7 +15,6 @@ import java.security.PrivateKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.util.Date;
 
-@Service
 public class DialogflowServices {
 
     @Value("${dialogflowUrl}")
@@ -47,8 +45,8 @@ public class DialogflowServices {
 
         HttpEntity<ResponseEventToDialogflow> entity = new HttpEntity<>(answer, headers);
 
-        ReceiveMessageFromDialogflow answerDialogflow = restTemplate.postForObject(dialogflowUrl, entity,
-                ReceiveMessageFromDialogflow.class);
+        DialogflowContract answerDialogflow = restTemplate.postForObject(dialogflowUrl, entity,
+                DialogflowContract.class);
 
         DialogflowMessage message = new DialogflowMessage(answerDialogflow);
 

@@ -1,9 +1,7 @@
 package chatbot.chatbot.climate;
 
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Service
 public class ClimateServices {
 
     private final RestTemplate restTemplate;
@@ -11,7 +9,6 @@ public class ClimateServices {
     public ClimateServices(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
     }
-
 
     public ResponseClimate getClimate(){
 

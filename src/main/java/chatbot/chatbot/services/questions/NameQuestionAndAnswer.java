@@ -2,9 +2,7 @@ package chatbot.chatbot.services.questions;
 
 import chatbot.chatbot.dialogflow.Message;
 import chatbot.chatbot.interfaces.Question;
-import org.springframework.stereotype.Component;
 
-@Component
 public class NameQuestionAndAnswer implements Question {
 
     @Override

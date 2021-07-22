@@ -16,7 +16,7 @@ public class DialogflowMessage {
     private String city;
     private Date date;
 
-    public DialogflowMessage(ReceiveMessageFromDialogflow event) {
+    public DialogflowMessage(DialogflowContract event) {
         intent = event.getQueryResult().getIntent().getDisplayName();
         if(intent.equals("ClimateSpecific - DateAndLocation")){
             date = event.getQueryResult().getParameters().getDate();

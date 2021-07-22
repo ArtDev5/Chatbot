@@ -9,7 +9,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ReceiveMessageFromDialogflow {
+public class DialogflowContract {
     private String responseId;
     private QueryResult queryResult;
 }
