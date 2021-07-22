@@ -11,6 +11,9 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootApplication
 public class ChatbotApplication {
 
@@ -64,8 +67,16 @@ public class ChatbotApplication {
 												   ClimateQuestionAndAnswer climateQuestionAndAnswer,
 												   ClimateSpecificQuestionAndAnswer climateSpecificQuestionAndAnswer,
 												   ClimateDateAndLocationQuestionAndAnswer climateDateLocationQuestion){
-		return new QuestionsAndAnswers(ageQuestionAndAnswer, nameQuestionAndAnswer, climateQuestionAndAnswer,
-				climateSpecificQuestionAndAnswer, climateDateLocationQuestion);
+
+		List<Question> answersAndQuestions = new ArrayList<>();
+
+		answersAndQuestions.add(ageQuestionAndAnswer);
+		answersAndQuestions.add(nameQuestionAndAnswer);
+		answersAndQuestions.add(climateQuestionAndAnswer);
+		answersAndQuestions.add(climateSpecificQuestionAndAnswer);
+		answersAndQuestions.add(climateDateLocationQuestion);
+
+		return new QuestionsAndAnswers(answersAndQuestions);
 	}
 
 	@Bean
