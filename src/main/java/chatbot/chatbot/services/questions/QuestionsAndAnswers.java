@@ -2,7 +2,6 @@ package chatbot.chatbot.services.questions;
 
 import chatbot.chatbot.interfaces.Question;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionsAndAnswers {

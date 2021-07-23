@@ -1,10 +1,10 @@
 package chatbot.chatbot.interfaces;
 
 
-import chatbot.chatbot.dialogflow.Message;
+import chatbot.chatbot.dialogflow.IntentAndEntities;
 
 public interface Question {
 
-    boolean verifyIntent(Message message);
-    String getAnswer(Message message);
+    boolean verifyIntent(IntentAndEntities intentAndEntities);
+    String getAnswer(IntentAndEntities intentAndEntities);
 }

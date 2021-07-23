@@ -4,19 +4,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
 @ToString
-public class Message {
+public class IntentAndEntities {
     private String intent;
-    private String city;
-    private Date date;
+    private Map<String, Object> parameters;
 
-    public Message(String intent, String city, Date date) {
+    public IntentAndEntities(String intent, Map<String, Object> parameters) {
         this.intent = intent;
-        this.city = city;
-        this.date = date;
+        this.parameters = parameters;
     }
 }

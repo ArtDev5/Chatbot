@@ -5,13 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Map;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class QueryResult {
-    private String queryText;
-    private String fulfillmentText;
     private IntentDialogflow intent;
-    private ParametersDialogflow parameters;
+    private Map<String, Object> parameters;
 }

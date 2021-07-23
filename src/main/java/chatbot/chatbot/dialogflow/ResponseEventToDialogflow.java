@@ -1,5 +1,6 @@
 package chatbot.chatbot.dialogflow;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -8,10 +9,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ResponseEventToDialogflow {
-
-    private TextDialogflow query_input;
+    @JsonProperty(value = "query_input")
+    private TextDialogflow queryInput;
 
     public ResponseEventToDialogflow(TextDialogflow text){
-        this.query_input = text;
+        this.queryInput = text;
     }
 }

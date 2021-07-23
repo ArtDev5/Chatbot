@@ -1,8 +1,8 @@
 package chatbot.chatbot.services;
 
 import chatbot.chatbot.dialogflow.DialogflowServices;
-import chatbot.chatbot.dialogflow.DialogflowMessage;
-import chatbot.chatbot.dialogflow.Message;
+import chatbot.chatbot.dialogflow.DialogflowIntentAndEntities;
+import chatbot.chatbot.dialogflow.IntentAndEntities;
 import chatbot.chatbot.interfaces.Question;
 import chatbot.chatbot.messenger.ReceiveMessage;
 import chatbot.chatbot.messenger.ResponseEvent;
@@ -11,7 +11,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
+import java.util.Map;
 
 public class BotServices {
 
@@ -41,16 +41,16 @@ public class BotServices {
 
     private String getAnswer(String userMessage){
 
-        DialogflowMessage dialogflowMessage = dialogflow.getIntentAndEntityFromDialogflow(userMessage);
-        String intent = dialogflowMessage.getIntent();
-        String city = dialogflowMessage.getCity();
-        Date date = dialogflowMessage.getDate();
+        DialogflowIntentAndEntities dialogflowMessage = dialogflow.getIntentAndEntityFromDialogflow(userMessage);
 
-        Message message = new Message(intent, city, date);
+        String intent = dialogflowMessage.getIntent();
+        Map<String, Object> parameters = dialogflowMessage.getParameters();
+
+        IntentAndEntities intentAndEntities = new IntentAndEntities(intent, parameters);
 
         for(Question values: questionsAndAnswers.getQuestionsWithAnswers()){
-            if(values.verifyIntent(message)){
-                return values.getAnswer(message);
+            if(values.verifyIntent(intentAndEntities)){
+                return values.getAnswer(intentAndEntities);
             }
         }
 

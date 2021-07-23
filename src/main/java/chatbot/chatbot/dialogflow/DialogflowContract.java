@@ -10,6 +10,5 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class DialogflowContract {
-    private String responseId;
     private QueryResult queryResult;
 }

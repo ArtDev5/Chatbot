@@ -1,18 +1,17 @@
 package chatbot.chatbot.services.questions;
 
-import chatbot.chatbot.dialogflow.Message;
+import chatbot.chatbot.dialogflow.IntentAndEntities;
 import chatbot.chatbot.interfaces.Question;
-import org.springframework.stereotype.Component;
 
 public class AgeQuestionAndAnswer implements Question {
 
     @Override
-    public boolean verifyIntent(Message message){
-        return message.getIntent().equals("Age");
+    public boolean verifyIntent(IntentAndEntities intentAndEntities){
+        return intentAndEntities.getIntent().equals("Age");
     }
 
     @Override
-    public String getAnswer(Message message){
+    public String getAnswer(IntentAndEntities intentAndEntities){
         return "20 anos.";
     }
 }

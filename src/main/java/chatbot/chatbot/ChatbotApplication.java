@@ -47,6 +47,10 @@ public class ChatbotApplication {
 	}
 
 	@Bean
+	public GreetingsQuestionsAndAnswers greetingsQuestionsAndAnswers(){
+		return new GreetingsQuestionsAndAnswers();
+	}
+	@Bean
 	public ClimateQuestionAndAnswer climateQuestionAndAnswer(ClimateServices climateServices){
 		return new ClimateQuestionAndAnswer(climateServices);
 	}
@@ -64,6 +68,7 @@ public class ChatbotApplication {
 	@Bean
 	public QuestionsAndAnswers questionsAndAnswers(AgeQuestionAndAnswer ageQuestionAndAnswer,
 												   NameQuestionAndAnswer nameQuestionAndAnswer,
+												   GreetingsQuestionsAndAnswers greetingsQuestionsAndAnswers,
 												   ClimateQuestionAndAnswer climateQuestionAndAnswer,
 												   ClimateSpecificQuestionAndAnswer climateSpecificQuestionAndAnswer,
 												   ClimateDateAndLocationQuestionAndAnswer climateDateLocationQuestion){
@@ -72,6 +77,7 @@ public class ChatbotApplication {
 
 		answersAndQuestions.add(ageQuestionAndAnswer);
 		answersAndQuestions.add(nameQuestionAndAnswer);
+		answersAndQuestions.add(greetingsQuestionsAndAnswers);
 		answersAndQuestions.add(climateQuestionAndAnswer);
 		answersAndQuestions.add(climateSpecificQuestionAndAnswer);
 		answersAndQuestions.add(climateDateLocationQuestion);
