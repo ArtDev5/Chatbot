@@ -8,20 +8,20 @@ public class ResponseClimate {
     private String condition;
     private String date;
 
-    public ResponseClimate(ReceiveClimate clima){
-        cityName = clima.getCityName();
-        temp = clima.getTemperature();
-        clima.getForecast().forEach(forecast -> {
+    public void getWeatherData(ReceiveClimate climate){
+        cityName = climate.getCityName();
+        temp = climate.getTemperature();
+        climate.getForecast().forEach(forecast -> {
             max = forecast.getMax();
             min = forecast.getMin();
             condition = forecast.getCondition();
         });
     }
 
-    public ResponseClimate(ReceiveClimate clima, String userDate){
-        cityName = clima.getCityName();
-        temp = clima.getTemperature();
-        clima.getForecast().forEach(forecast -> {
+    public void getWeatherData(ReceiveClimate climate, String userDate){
+        cityName = climate.getCityName();
+        temp = climate.getTemperature();
+        climate.getForecast().forEach(forecast -> {
             date = forecast.getDate();
             if(date.equals(userDate.substring(0,5))){
                 max = forecast.getMax();

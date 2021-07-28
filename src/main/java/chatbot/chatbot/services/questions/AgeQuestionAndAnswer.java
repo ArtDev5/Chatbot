@@ -1,17 +1,18 @@
 package chatbot.chatbot.services.questions;
 
-import chatbot.chatbot.dialogflow.IntentAndEntities;
+import chatbot.chatbot.dialogflow.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 
 public class AgeQuestionAndAnswer implements Question {
 
     @Override
-    public boolean verifyIntent(IntentAndEntities intentAndEntities){
-        return intentAndEntities.getIntent().equals("Age");
+    public boolean verifyIntent(MessageEntity messageEntity){
+        String intent = messageEntity.getIntent();
+        return intent.equals("Age");
     }
 
     @Override
-    public String getAnswer(IntentAndEntities intentAndEntities){
+    public String getAnswer(MessageEntity messageEntity){
         return "20 anos.";
     }
 }

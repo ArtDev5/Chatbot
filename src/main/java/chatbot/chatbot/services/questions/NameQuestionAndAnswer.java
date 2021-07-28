@@ -1,17 +1,18 @@
 package chatbot.chatbot.services.questions;
 
-import chatbot.chatbot.dialogflow.IntentAndEntities;
+import chatbot.chatbot.dialogflow.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 
 public class NameQuestionAndAnswer implements Question {
 
     @Override
-    public boolean verifyIntent(IntentAndEntities intentAndEntities){
-        return intentAndEntities.getIntent().equals("Name");
+    public boolean verifyIntent(MessageEntity messageEntity){
+        String intent = messageEntity.getIntent();
+        return intent.equals("Name");
     }
 
     @Override
-    public String getAnswer(IntentAndEntities intentAndEntities) {
+    public String getAnswer(MessageEntity messageEntity) {
         return "Artur Silva.";
     }
 }

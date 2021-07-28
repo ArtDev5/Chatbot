@@ -2,13 +2,16 @@ package chatbot.chatbot.dialogflow;
 
 import java.util.Map;
 
-public class IntentAndEntities {
+public class DialogflowData {
     private String intent;
     private Map<String, Object> parameters;
 
-    public IntentAndEntities(String intent, Map<String, Object> parameters) {
-        this.intent = intent;
-        this.parameters = parameters;
+    public void convertDialogflowData(DialogflowContract dialogflowContract){
+        QueryResult queryResult = dialogflowContract.getQueryResult();
+        DialogflowIntent dialogflowIntent = queryResult.getIntent();
+        intent = dialogflowIntent.getDisplayName();
+
+        parameters = queryResult.getParameters();
     }
 
     public String getIntent() {
@@ -21,7 +24,7 @@ public class IntentAndEntities {
 
     @Override
     public String toString() {
-        return "IntentAndEntities{" +
+        return "DialogflowIntentAndEntities{" +
                 "intent='" + intent + '\'' +
                 ", parameters=" + parameters +
                 '}';

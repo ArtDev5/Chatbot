@@ -2,7 +2,7 @@ package chatbot.chatbot.services.questions;
 
 import chatbot.chatbot.climate.ClimateServices;
 import chatbot.chatbot.climate.ResponseClimate;
-import chatbot.chatbot.dialogflow.IntentAndEntities;
+import chatbot.chatbot.dialogflow.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 
 public class ClimateQuestionAndAnswer implements Question {
@@ -13,12 +13,13 @@ public class ClimateQuestionAndAnswer implements Question {
         this.climateServices = climateServices;
     }
     @Override
-    public boolean verifyIntent(IntentAndEntities intentAndEntities){
-        return intentAndEntities.getIntent().equals("Climate");
+    public boolean verifyIntent(MessageEntity messageEntity){
+        String intent = messageEntity.getIntent();
+        return intent.equals("Climate");
     }
 
     @Override
-    public String getAnswer(IntentAndEntities intentAndEntities){
+    public String getAnswer(MessageEntity messageEntity){
         ResponseClimate responseClimate = climateServices.getClimate();
 
         String weatherResult = "Na minha cidade (" + responseClimate.getCityName() + ") está " +

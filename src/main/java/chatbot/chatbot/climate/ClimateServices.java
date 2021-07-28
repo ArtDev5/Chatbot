@@ -1,8 +1,12 @@
 package chatbot.chatbot.climate;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 public class ClimateServices {
+
+    @Value("${urlClimate}")
+    private String urlClimate;
 
     private final RestTemplate restTemplate;
 
@@ -12,39 +16,26 @@ public class ClimateServices {
 
     public ResponseClimate getClimate(){
 
-        String url = getUrl();
+        String url = urlClimate+"Porto Real do Colégio";
 
         ReceiveClimate receiveClimate = restTemplate.getForObject(url, ReceiveClimate.class);
 
-        ResponseClimate climate = new ResponseClimate(receiveClimate);
+        ResponseClimate climate = new ResponseClimate();
+        climate.getWeatherData(receiveClimate);
 
         return climate;
     }
 
     public ResponseClimate getClimate(String userDate, String userLocation){
 
-            String url = getUrl(userLocation);
+            String url = urlClimate+userLocation;
 
             ReceiveClimate receiveClimate = restTemplate.getForObject(url, ReceiveClimate.class);
 
-            ResponseClimate climate = new ResponseClimate(receiveClimate, userDate);
+            ResponseClimate climate = new ResponseClimate();
+            climate.getWeatherData(receiveClimate, userDate);
 
             return climate;
     }
-
-    private String getUrl(){
-
-        return "https://api.hgbrasil.com/weather?array_limit=1" +
-                "&fields=only_results,temp,city_name,forecast,max,min," +
-                "date,condition&key=ddbccb12&city_name=Porto Real do Colégio";
-    }
-
-    private String getUrl(String name){
-
-        return "https://api.hgbrasil.com/weather?array_limit=20" +
-                "&fields=only_results,temp,city_name,forecast,max,min," +
-                "date,condition&key=ddbccb12&city_name="+name;
-    }
-
 
 }

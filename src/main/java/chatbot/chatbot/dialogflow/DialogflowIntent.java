@@ -1,6 +1,6 @@
 package chatbot.chatbot.dialogflow;
 
-public class IntentDialogflow {
+public class DialogflowIntent {
     private String displayName;
 
     public String getDisplayName() {

@@ -32,7 +32,7 @@ public class DialogflowServices {
         this.restTemplate = restTemplate;
     }
 
-    public DialogflowIntentAndEntities getIntentAndEntityFromDialogflow(String userMessage){
+    public DialogflowData getDialogflowData(String userMessage){
 
         String jwtAssigned = getSignedJWT();
 
@@ -45,12 +45,13 @@ public class DialogflowServices {
 
         HttpEntity<ResponseEventToDialogflow> entity = new HttpEntity<>(answer, headers);
 
-        DialogflowContract answerDialogflow = restTemplate.postForObject(dialogflowUrl, entity,
+        DialogflowContract dialogflowContract = restTemplate.postForObject(dialogflowUrl, entity,
                 DialogflowContract.class);
 
-        DialogflowIntentAndEntities intentAndEntities = new DialogflowIntentAndEntities(answerDialogflow);
+        DialogflowData dialogflowData = new DialogflowData();
+        dialogflowData.convertDialogflowData(dialogflowContract);
 
-        return intentAndEntities;
+        return dialogflowData;
     }
 
     private String getSignedJWT(){

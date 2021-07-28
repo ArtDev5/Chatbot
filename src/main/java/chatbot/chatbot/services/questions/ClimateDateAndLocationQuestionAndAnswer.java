@@ -2,7 +2,7 @@ package chatbot.chatbot.services.questions;
 
 import chatbot.chatbot.climate.ClimateServices;
 import chatbot.chatbot.climate.ResponseClimate;
-import chatbot.chatbot.dialogflow.IntentAndEntities;
+import chatbot.chatbot.dialogflow.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 
 import java.text.ParseException;
@@ -19,21 +19,22 @@ public class ClimateDateAndLocationQuestionAndAnswer implements Question {
     }
 
     @Override
-    public boolean verifyIntent(IntentAndEntities intentAndEntities) {
-        return intentAndEntities.getIntent().equals("ClimateSpecific - DateAndLocation");
+    public boolean verifyIntent(MessageEntity messageEntity) {
+        String intent = messageEntity.getIntent();
+        return intent.equals("ClimateSpecific - DateAndLocation");
     }
 
     @Override
-    public String getAnswer(IntentAndEntities intentAndEntities) {
+    public String getAnswer(MessageEntity messageEntity) {
+        Map<String, Object> parameters = messageEntity.getParameters();
 
-        String currentDate = (String) intentAndEntities.getParameters().get("date");
+        String currentDate = (String) parameters.get("date");
         String userDate = getDateFormatted(currentDate);
 
-        Map<String, Object> location = (Map<String, Object>) intentAndEntities.getParameters().get("location");
+        Map<String, Object> location = (Map<String, Object>) parameters.get("location");
         String userCity = (String) location.get("city");
 
         return createAnswer(userDate, userCity);
-
 
     }
 

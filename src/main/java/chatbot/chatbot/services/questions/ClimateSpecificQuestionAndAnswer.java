@@ -1,17 +1,18 @@
 package chatbot.chatbot.services.questions;
 
-import chatbot.chatbot.dialogflow.IntentAndEntities;
+import chatbot.chatbot.dialogflow.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 
 public class ClimateSpecificQuestionAndAnswer implements Question {
 
     @Override
-    public boolean verifyIntent(IntentAndEntities intentAndEntities) {
-        return intentAndEntities.getIntent().equals("ClimateSpecific");
+    public boolean verifyIntent(MessageEntity messageEntity) {
+        String intent = messageEntity.getIntent();
+        return intent.equals("ClimateSpecific");
     }
 
     @Override
-    public String getAnswer(IntentAndEntities intentAndEntities) {
+    public String getAnswer(MessageEntity messageEntity) {
         return "Me informe o dia e o local.";
     }
 }

@@ -1,8 +1,8 @@
 package chatbot.chatbot.services;
 
 import chatbot.chatbot.dialogflow.DialogflowServices;
-import chatbot.chatbot.dialogflow.DialogflowIntentAndEntities;
-import chatbot.chatbot.dialogflow.IntentAndEntities;
+import chatbot.chatbot.dialogflow.DialogflowData;
+import chatbot.chatbot.dialogflow.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 import chatbot.chatbot.messenger.ReceiveMessage;
 import chatbot.chatbot.messenger.ResponseEvent;
@@ -41,16 +41,16 @@ public class BotServices {
 
     private String getAnswer(String userMessage){
 
-        DialogflowIntentAndEntities dialogflowMessage = dialogflow.getIntentAndEntityFromDialogflow(userMessage);
+        DialogflowData dialogflowMessage = dialogflow.getDialogflowData(userMessage);
 
         String intent = dialogflowMessage.getIntent();
         Map<String, Object> parameters = dialogflowMessage.getParameters();
 
-        IntentAndEntities intentAndEntities = new IntentAndEntities(intent, parameters);
+        MessageEntity messageEntity = new MessageEntity(intent, parameters);
 
         for(Question values: questionsAndAnswers.getQuestionsWithAnswers()){
-            if(values.verifyIntent(intentAndEntities)){
-                return values.getAnswer(intentAndEntities);
+            if(values.verifyIntent(messageEntity)){
+                return values.getAnswer(messageEntity);
             }
         }
 
