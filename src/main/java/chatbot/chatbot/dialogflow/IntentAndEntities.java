@@ -1,14 +1,7 @@
 package chatbot.chatbot.dialogflow;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import java.util.Map;
 
-@Data
-@NoArgsConstructor
-@ToString
 public class IntentAndEntities {
     private String intent;
     private Map<String, Object> parameters;
@@ -16,5 +9,21 @@ public class IntentAndEntities {
     public IntentAndEntities(String intent, Map<String, Object> parameters) {
         this.intent = intent;
         this.parameters = parameters;
+    }
+
+    public String getIntent() {
+        return intent;
+    }
+
+    public Map<String, Object> getParameters() {
+        return parameters;
+    }
+
+    @Override
+    public String toString() {
+        return "IntentAndEntities{" +
+                "intent='" + intent + '\'' +
+                ", parameters=" + parameters +
+                '}';
     }
 }

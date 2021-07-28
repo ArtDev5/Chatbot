@@ -1,14 +1,5 @@
 package chatbot.chatbot.climate;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 public class ResponseClimate {
     private String cityName;
     private int temp;
@@ -38,5 +29,41 @@ public class ResponseClimate {
                 condition = forecast.getCondition();
             }
         });
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public int getTemp() {
+        return temp;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    @Override
+    public String toString() {
+        return "ResponseClimate{" +
+                "cityName='" + cityName + '\'' +
+                ", temp=" + temp +
+                ", max=" + max +
+                ", min=" + min +
+                ", condition='" + condition + '\'' +
+                ", date='" + date + '\'' +
+                '}';
     }
 }

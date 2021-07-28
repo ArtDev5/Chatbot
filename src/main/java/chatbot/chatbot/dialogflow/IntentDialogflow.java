@@ -1,14 +1,16 @@
 package chatbot.chatbot.dialogflow;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 public class IntentDialogflow {
     private String displayName;
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    @Override
+    public String toString() {
+        return "IntentDialogflow{" +
+                "displayName='" + displayName + '\'' +
+                '}';
+    }
 }

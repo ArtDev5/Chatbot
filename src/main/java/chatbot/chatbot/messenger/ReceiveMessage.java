@@ -1,14 +1,5 @@
 package chatbot.chatbot.messenger;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 public class ReceiveMessage {
     private String userId;
     private String userMessage;
@@ -18,5 +9,21 @@ public class ReceiveMessage {
             userId = messaging.getSender().get("id");
             userMessage = messaging.getMessage().getText();
         }));
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getUserMessage() {
+        return userMessage;
+    }
+
+    @Override
+    public String toString() {
+        return "ReceiveMessage{" +
+                "userId='" + userId + '\'' +
+                ", userMessage='" + userMessage + '\'' +
+                '}';
     }
 }

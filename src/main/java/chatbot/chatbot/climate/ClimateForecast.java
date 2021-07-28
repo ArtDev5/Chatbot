@@ -1,17 +1,34 @@
 package chatbot.chatbot.climate;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@ToString
 public class ClimateForecast {
     private int max;
     private int min;
     private String date;
     private String condition;
+
+    public int getMax() {
+        return max;
+    }
+
+    public int getMin() {
+        return min;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    @Override
+    public String toString() {
+        return "ClimateForecast{" +
+                "max=" + max +
+                ", min=" + min +
+                ", date='" + date + '\'' +
+                ", condition='" + condition + '\'' +
+                '}';
+    }
 }

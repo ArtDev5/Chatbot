@@ -1,18 +1,33 @@
 package chatbot.chatbot.messenger;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 public class PostMessaging {
     private Map<String, String> sender = new HashMap<>();
     private PostMessage message;
+
+    public Map<String, String> getSender() {
+        return sender;
+    }
+
+    public void setSender(Map<String, String> sender) {
+        this.sender = sender;
+    }
+
+    public PostMessage getMessage() {
+        return message;
+    }
+
+    public void setMessage(PostMessage message) {
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "PostMessaging{" +
+                "sender=" + sender +
+                ", message=" + message +
+                '}';
+    }
 }

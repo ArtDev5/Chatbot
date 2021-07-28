@@ -1,21 +1,35 @@
 package chatbot.chatbot.climate;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@ToString
 public class ReceiveClimate {
     @JsonProperty("temp")
     private int temperature;
     @JsonProperty("city_name")
     private String cityName;
     private List<ClimateForecast> forecast;
+
+    public int getTemperature() {
+        return temperature;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public List<ClimateForecast> getForecast() {
+        return forecast;
+    }
+
+    @Override
+    public String toString() {
+        return "ReceiveClimate{" +
+                "temperature=" + temperature +
+                ", cityName='" + cityName + '\'' +
+                ", forecast=" + forecast +
+                '}';
+    }
 }
