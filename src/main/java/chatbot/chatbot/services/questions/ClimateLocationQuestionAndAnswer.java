@@ -4,6 +4,8 @@ import chatbot.chatbot.climate.ClimateServices;
 import chatbot.chatbot.climate.ResponseClimate;
 import chatbot.chatbot.dialogflow.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
+import chatbot.chatbot.manager.MessageContext;
+import chatbot.chatbot.manager.MessageContextTest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,10 +15,18 @@ import java.util.Map;
 public class ClimateDateAndLocationQuestionAndAnswer implements Question {
 
     private final ClimateServices climateServices;
+    private final MessageContext messageContext;
+    private final MessageContextTest messageContextTest;
 
-    public ClimateDateAndLocationQuestionAndAnswer(ClimateServices climateServices){
+    public ClimateDateAndLocationQuestionAndAnswer(ClimateServices climateServices,
+                                                   MessageContext messageContext,
+                                                   MessageContextTest messageContextTest){
         this.climateServices = climateServices;
+        this.messageContext = messageContext;
+        this.messageContextTest = messageContextTest;
     }
+
+
 
     @Override
     public boolean verifyIntent(MessageEntity messageEntity) {
@@ -27,12 +37,15 @@ public class ClimateDateAndLocationQuestionAndAnswer implements Question {
     @Override
     public String getAnswer(MessageEntity messageEntity) {
         Map<String, Object> parameters = messageEntity.getParameters();
-
-        String currentDate = (String) parameters.get("date");
-        String userDate = getDateFormatted(currentDate);
-
         Map<String, Object> location = (Map<String, Object>) parameters.get("location");
+
         String userCity = (String) location.get("city");
+        String userDate = messageContext.getDate();
+
+        String userId = messageEntity.getUserId();
+        String dateTest = messageContextTest.getContextData(userId, "date");
+
+        System.out.println(dateTest + " - " + userCity);
 
         return createAnswer(userDate, userCity);
 
@@ -45,26 +58,17 @@ public class ClimateDateAndLocationQuestionAndAnswer implements Question {
         if (responseClimate.getMax() == 0 && responseClimate.getMin() == 0) {
             return "Informe uma data dentro do limite, sendo do dia atual até 10 dias.";
         }
+        StringBuilder builder = new StringBuilder();
 
-        return "No dia " + userDate + " está/estará batendo " + responseClimate.getTemp() + "ºC na cidade " +
-                responseClimate.getCityName() + " com a condição '" + responseClimate.getCondition() +
-                "', além da temperatura máxima de " + responseClimate.getMax() + " e mínima " +
-                "de " + responseClimate.getMin();
+        builder.append("No dia ").append(userDate);
+        builder.append(" está/estará batendo ").append(responseClimate.getTemp());
+        builder.append("ºC na cidade ").append(responseClimate.getCityName());
+        builder.append(" com a condição '").append(responseClimate.getCondition());
+        builder.append("', além da temperatura máxima de ").append(responseClimate.getMax());
+        builder.append(" e mínima de ").append(responseClimate.getMin());
+
+        return builder.toString();
     }
 
-    private String getDateFormatted(String currentDate){
-        try {
 
-            SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            Date date = dateParser.parse(currentDate);
-
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-
-            return dateFormatter.format(date);
-
-        }catch (ParseException e){
-            e.printStackTrace();
-            return e.getMessage();
-        }
-    }
 }
