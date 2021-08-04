@@ -1,7 +1,7 @@
 package chatbot.chatbot.interfaces;
 
 
-import chatbot.chatbot.dialogflow.MessageEntity;
+import chatbot.chatbot.entities.MessageEntity;
 
 public interface Question {
 

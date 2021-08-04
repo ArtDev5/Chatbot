@@ -2,7 +2,7 @@ package chatbot.chatbot.services.questions;
 
 import chatbot.chatbot.climate.ClimateServices;
 import chatbot.chatbot.climate.ResponseClimate;
-import chatbot.chatbot.dialogflow.MessageEntity;
+import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 
 public class ClimateQuestionAndAnswer implements Question {
@@ -22,11 +22,12 @@ public class ClimateQuestionAndAnswer implements Question {
     public String getAnswer(MessageEntity messageEntity){
         ResponseClimate responseClimate = climateServices.getClimate();
 
-        String weatherResult = "Na minha cidade (" + responseClimate.getCityName() + ") está " +
-                "batendo " + responseClimate.getTemp() +"ºC com a condição '" + responseClimate.getCondition() + "', " +
-                "além da temperatura máxima de " +responseClimate.getMax() +
+        String answer = "Na minha cidade (" + responseClimate.getCityName() +
+                ") está batendo " + responseClimate.getTemp() +
+                "ºC com a condição '" + responseClimate.getCondition() +
+                "' além da temperatura máxima de " + responseClimate.getMax() +
                 " e mínima de " + responseClimate.getMin();
 
-        return weatherResult;
+        return answer;
     }
 }

@@ -10,7 +10,8 @@ public class QueryResult {
     @JsonProperty(value = "fulfillmentText")
     private String dialogflowAnswer;
     private DialogflowIntent intent;
-    private Map<String, Object> parameters;
+    @JsonProperty(value = "parameters")
+    private Map<String, Object> entities;
 
     public String getUserMessage() {
         return userMessage;
@@ -24,8 +25,8 @@ public class QueryResult {
         return intent;
     }
 
-    public Map<String, Object> getParameters() {
-        return parameters;
+    public Map<String, Object> getEntities() {
+        return entities;
     }
 
     @Override
@@ -34,7 +35,7 @@ public class QueryResult {
                 "userMessage='" + userMessage + '\'' +
                 ", dialogflowAnswer='" + dialogflowAnswer + '\'' +
                 ", intent=" + intent +
-                ", parameters=" + parameters +
+                ", entities=" + entities +
                 '}';
     }
 }

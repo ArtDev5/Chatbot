@@ -3,6 +3,7 @@ package chatbot.chatbot;
 import chatbot.chatbot.climate.ClimateServices;
 import chatbot.chatbot.dialogflow.DialogflowServices;
 import chatbot.chatbot.interfaces.Question;
+import chatbot.chatbot.manager.MessageContext;
 import chatbot.chatbot.services.BotServices;
 import chatbot.chatbot.services.questions.*;
 import org.springframework.boot.SpringApplication;
@@ -61,8 +62,14 @@ public class ChatbotApplication {
 	}
 
 	@Bean
-	public ClimateDateAndLocationQuestionAndAnswer climateDateLocationQuestion(ClimateServices climateServices){
-		return new ClimateDateAndLocationQuestionAndAnswer(climateServices);
+	public ClimateDateQuestionAndAnswer climateDateQuestionAndAnswer(MessageContext messageContext){
+		return new ClimateDateQuestionAndAnswer(messageContext);
+	}
+
+	@Bean
+	public ClimateLocationQuestionAndAnswer climateDateLocationQuestion(ClimateServices climateServices,
+																		MessageContext messageContext){
+		return new ClimateLocationQuestionAndAnswer(climateServices, messageContext);
 	}
 
 	@Bean
@@ -71,7 +78,8 @@ public class ChatbotApplication {
 												   GreetingsQuestionsAndAnswers greetingsQuestionsAndAnswers,
 												   ClimateQuestionAndAnswer climateQuestionAndAnswer,
 												   ClimateSpecificQuestionAndAnswer climateSpecificQuestionAndAnswer,
-												   ClimateDateAndLocationQuestionAndAnswer climateDateLocationQuestion){
+												   ClimateDateQuestionAndAnswer climateDateQuestionAndAnswer,
+												   ClimateLocationQuestionAndAnswer climateLocationQuestionAndAnswer){
 
 		List<Question> answersAndQuestions = new ArrayList<>();
 
@@ -80,7 +88,8 @@ public class ChatbotApplication {
 		answersAndQuestions.add(greetingsQuestionsAndAnswers);
 		answersAndQuestions.add(climateQuestionAndAnswer);
 		answersAndQuestions.add(climateSpecificQuestionAndAnswer);
-		answersAndQuestions.add(climateDateLocationQuestion);
+		answersAndQuestions.add(climateDateQuestionAndAnswer);
+		answersAndQuestions.add(climateLocationQuestionAndAnswer);
 
 		return new QuestionsAndAnswers(answersAndQuestions);
 	}
@@ -89,6 +98,11 @@ public class ChatbotApplication {
 	public BotServices botServices(RestTemplate restTemplate, DialogflowServices dialogflowServices,
 								   QuestionsAndAnswers questionsAndAnswers){
 		return new BotServices(restTemplate, dialogflowServices, questionsAndAnswers);
+	}
+
+	@Bean
+	public MessageContext messageContextTest(){
+		return new MessageContext();
 	}
 
 

@@ -1,6 +1,6 @@
 package chatbot.chatbot.services.questions;
 
-import chatbot.chatbot.dialogflow.MessageEntity;
+import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 
 public class NameQuestionAndAnswer implements Question {

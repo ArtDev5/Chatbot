@@ -1,4 +1,4 @@
-package chatbot.chatbot.dialogflow;
+package chatbot.chatbot.entities;
 
 import java.util.Map;
 

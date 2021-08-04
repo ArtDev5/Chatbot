@@ -1,8 +1,8 @@
 package chatbot.chatbot.services;
 
 import chatbot.chatbot.dialogflow.DialogflowServices;
-import chatbot.chatbot.dialogflow.DialogflowData;
-import chatbot.chatbot.dialogflow.MessageEntity;
+import chatbot.chatbot.entities.EntitiesData;
+import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 import chatbot.chatbot.messenger.ReceiveMessage;
 import chatbot.chatbot.messenger.ResponseEvent;
@@ -30,7 +30,7 @@ public class BotServices {
         String userId = message.getUserId();
         String userMessage = message.getUserMessage();
 
-        String answer = getAnswer(userMessage);
+        String answer = getAnswer(userMessage, userId);
 
         ResponseEvent response = new ResponseEvent(userId, answer);
 
@@ -39,14 +39,15 @@ public class BotServices {
         restTemplate.postForEntity(responseUrl, entity, String.class);
     }
 
-    private String getAnswer(String userMessage){
+    private String getAnswer(String userMessage, String userId){
 
-        DialogflowData dialogflowMessage = dialogflow.getDialogflowData(userMessage);
+        EntitiesData entitiesData = dialogflow.getDialogflowData(userMessage);
 
-        String intent = dialogflowMessage.getIntent();
-        Map<String, Object> parameters = dialogflowMessage.getParameters();
+        String intent = entitiesData.getIntent();
 
-        MessageEntity messageEntity = new MessageEntity(intent, parameters);
+        Map<String, String> entities = entitiesData.getEntities();
+
+        MessageEntity messageEntity = new MessageEntity(userMessage, userId, intent, entities);
 
         for(Question values: questionsAndAnswers.getQuestionsWithAnswers()){
             if(values.verifyIntent(messageEntity)){

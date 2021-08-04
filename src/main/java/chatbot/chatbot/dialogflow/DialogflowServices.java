@@ -1,5 +1,6 @@
 package chatbot.chatbot.dialogflow;
 
+import chatbot.chatbot.entities.EntitiesData;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -13,7 +14,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.PrivateKey;
 import java.security.interfaces.RSAPrivateKey;
-import java.util.Date;
+import java.util.*;
 
 public class DialogflowServices {
 
@@ -22,7 +23,7 @@ public class DialogflowServices {
     @Value("${serviceAccount}")
     private String serviceAccount;
     @Value("${apiEndpoint}")
-    private String apiEndpoit;
+    private String apiEndpoint;
 
     private final long ONE_HOUR_IN_MILLISECONDS = 3600 * 1000;
 
@@ -32,7 +33,7 @@ public class DialogflowServices {
         this.restTemplate = restTemplate;
     }
 
-    public DialogflowData getDialogflowData(String userMessage){
+    public EntitiesData getDialogflowData(String userMessage){
 
         String jwtAssigned = getSignedJWT();
 
@@ -48,10 +49,8 @@ public class DialogflowServices {
         DialogflowContract dialogflowContract = restTemplate.postForObject(dialogflowUrl, entity,
                 DialogflowContract.class);
 
-        DialogflowData dialogflowData = new DialogflowData();
-        dialogflowData.convertDialogflowData(dialogflowContract);
-
-        return dialogflowData;
+        assert dialogflowContract != null;
+        return getConvertedData(dialogflowContract);
     }
 
     private String getSignedJWT(){
@@ -69,7 +68,7 @@ public class DialogflowServices {
                     .withKeyId(privateKeyId)
                     .withIssuer(serviceAccount)
                     .withSubject(serviceAccount)
-                    .withAudience(apiEndpoit)
+                    .withAudience(apiEndpoint)
                     .withIssuedAt(dateNow)
                     .withExpiresAt(dateExpire)
                     .sign(algorithm);
@@ -78,6 +77,37 @@ public class DialogflowServices {
         } catch(IOException e){
             return e.getMessage();
         }
+    }
+
+    private EntitiesData getConvertedData(DialogflowContract dialogflowContract){
+        EntitiesData entitiesData = new EntitiesData();
+
+        QueryResult queryResult = dialogflowContract.getQueryResult();
+        DialogflowIntent dialogflowIntent = queryResult.getIntent();
+        String intent = dialogflowIntent.getDisplayName();
+        entitiesData.setIntent(intent);
+
+        Map<String, String> entities = getEntitiesFromDialogflow(queryResult.getEntities());
+        entitiesData.setEntities(entities);
+
+        return entitiesData;
+    }
+
+    private Map<String, String> getEntitiesFromDialogflow(Map<String, Object> entities){
+        Map<String, String> entitiesValues = new HashMap<>();
+
+        if(entities != null) {
+            for(Map.Entry<String, Object> values : entities.entrySet()){
+                if(values.getKey().equals("location")){
+                    Map<String, String> location = (Map<String, String>) values.getValue();
+                    entitiesValues.put("city", location.get("city"));
+                }else{
+                    entitiesValues.put(values.getKey(), (String) values.getValue());
+                }
+            }
+        }
+        return entitiesValues;
+
     }
 
 }

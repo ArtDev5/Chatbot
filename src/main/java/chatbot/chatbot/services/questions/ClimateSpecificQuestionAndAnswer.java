@@ -1,6 +1,6 @@
 package chatbot.chatbot.services.questions;
 
-import chatbot.chatbot.dialogflow.MessageEntity;
+import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 
 public class ClimateSpecificQuestionAndAnswer implements Question {
@@ -13,6 +13,6 @@ public class ClimateSpecificQuestionAndAnswer implements Question {
 
     @Override
     public String getAnswer(MessageEntity messageEntity) {
-        return "Me informe o dia e o local.";
+        return "De qual o dia?";
     }
 }

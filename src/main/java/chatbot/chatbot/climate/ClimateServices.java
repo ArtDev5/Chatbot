@@ -21,6 +21,8 @@ public class ClimateServices {
         ReceiveClimate receiveClimate = restTemplate.getForObject(url, ReceiveClimate.class);
 
         ResponseClimate climate = new ResponseClimate();
+
+        assert receiveClimate != null;
         climate.getWeatherData(receiveClimate);
 
         return climate;
@@ -28,14 +30,16 @@ public class ClimateServices {
 
     public ResponseClimate getClimate(String userDate, String userLocation){
 
-            String url = urlClimate+userLocation;
+        String url = urlClimate+userLocation;
 
-            ReceiveClimate receiveClimate = restTemplate.getForObject(url, ReceiveClimate.class);
+        ReceiveClimate receiveClimate = restTemplate.getForObject(url, ReceiveClimate.class);
 
-            ResponseClimate climate = new ResponseClimate();
-            climate.getWeatherData(receiveClimate, userDate);
+        ResponseClimate climate = new ResponseClimate();
 
-            return climate;
+        assert receiveClimate != null;
+        climate.getWeatherData(receiveClimate, userDate);
+
+        return climate;
     }
 
 }
