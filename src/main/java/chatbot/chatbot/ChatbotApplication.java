@@ -62,8 +62,9 @@ public class ChatbotApplication {
 	}
 
 	@Bean
-	public ClimateDateQuestionAndAnswer climateDateQuestionAndAnswer(MessageContext messageContext){
-		return new ClimateDateQuestionAndAnswer(messageContext);
+	public ClimateDateQuestionAndAnswer climateDateQuestionAndAnswer(MessageContext messageContext,
+																	 ClimateServices climateServices){
+		return new ClimateDateQuestionAndAnswer(messageContext, climateServices);
 	}
 
 	@Bean
@@ -73,13 +74,19 @@ public class ChatbotApplication {
 	}
 
 	@Bean
+	public ClimateDateAndLocationQuestionAndAnswer climateDateAndLocation(ClimateServices climateServices){
+		return new ClimateDateAndLocationQuestionAndAnswer(climateServices);
+	}
+
+	@Bean
 	public QuestionsAndAnswers questionsAndAnswers(AgeQuestionAndAnswer ageQuestionAndAnswer,
 												   NameQuestionAndAnswer nameQuestionAndAnswer,
 												   GreetingsQuestionsAndAnswers greetingsQuestionsAndAnswers,
 												   ClimateQuestionAndAnswer climateQuestionAndAnswer,
 												   ClimateSpecificQuestionAndAnswer climateSpecificQuestionAndAnswer,
 												   ClimateDateQuestionAndAnswer climateDateQuestionAndAnswer,
-												   ClimateLocationQuestionAndAnswer climateLocationQuestionAndAnswer){
+												   ClimateLocationQuestionAndAnswer climateLocationQuestionAndAnswer,
+												   ClimateDateAndLocationQuestionAndAnswer climateDateAndLocation){
 
 		List<Question> answersAndQuestions = new ArrayList<>();
 
@@ -90,6 +97,7 @@ public class ChatbotApplication {
 		answersAndQuestions.add(climateSpecificQuestionAndAnswer);
 		answersAndQuestions.add(climateDateQuestionAndAnswer);
 		answersAndQuestions.add(climateLocationQuestionAndAnswer);
+		answersAndQuestions.add(climateDateAndLocation);
 
 		return new QuestionsAndAnswers(answersAndQuestions);
 	}
