@@ -13,6 +13,6 @@ public class ClimateSpecificQuestionAndAnswer implements Question {
 
     @Override
     public String getAnswer(MessageEntity messageEntity) {
-        return "De qual o dia?";
+        return "Me informe o dia e o local.";
     }
 }
