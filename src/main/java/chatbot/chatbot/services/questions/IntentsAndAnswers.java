@@ -4,11 +4,11 @@ import chatbot.chatbot.interfaces.Question;
 
 import java.util.List;
 
-public class QuestionsAndAnswers {
+public class IntentsAndAnswers {
 
     private final List<Question> listQuestionsAndAnswers;
 
-    public QuestionsAndAnswers(List<Question> listQuestionsAndAnswers){
+    public IntentsAndAnswers(List<Question> listQuestionsAndAnswers){
         this.listQuestionsAndAnswers = listQuestionsAndAnswers;
     }
 

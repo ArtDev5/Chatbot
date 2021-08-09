@@ -6,12 +6,12 @@ import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 import chatbot.chatbot.manager.MessageContext;
 
-public class ClimateQuestionAndAnswer implements Question {
+public class ClimateIntentAndAnswer implements Question {
 
     private final ClimateServices climateServices;
     private final MessageContext messageContext;
 
-    public ClimateQuestionAndAnswer(ClimateServices climateServices, MessageContext messageContext){
+    public ClimateIntentAndAnswer(ClimateServices climateServices, MessageContext messageContext){
         this.climateServices = climateServices;
         this.messageContext = messageContext;
     }

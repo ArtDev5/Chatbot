@@ -38,74 +38,74 @@ public class ChatbotApplication {
 	}
 
 	@Bean
-	public AgeQuestionAndAnswer ageQuestionAndAnswer(){
-		return new AgeQuestionAndAnswer();
+	public AgeIntentAndAnswer ageQuestionAndAnswer(MessageContext messageContext){
+		return new AgeIntentAndAnswer(messageContext);
 	}
 
 	@Bean
-	public NameQuestionAndAnswer nameQuestionAndAnswer(){
-		return new NameQuestionAndAnswer();
+	public NameIntentAndAnswer nameQuestionAndAnswer(MessageContext messageContext){
+		return new NameIntentAndAnswer(messageContext);
 	}
 
 	@Bean
-	public GreetingsQuestionsAndAnswers greetingsQuestionsAndAnswers(){
-		return new GreetingsQuestionsAndAnswers();
+	public GreetingsIntentAndAnswer greetingsQuestionsAndAnswers(MessageContext messageContext){
+		return new GreetingsIntentAndAnswer(messageContext);
 	}
 	@Bean
-	public ClimateQuestionAndAnswer climateQuestionAndAnswer(ClimateServices climateServices){
-		return new ClimateQuestionAndAnswer(climateServices);
-	}
-
-	@Bean
-	public ClimateSpecificQuestionAndAnswer climateSpecificQuestionAndAnswer(){
-		return new ClimateSpecificQuestionAndAnswer();
+	public ClimateIntentAndAnswer climateQuestionAndAnswer(ClimateServices climateServices,
+														   MessageContext messageContext){
+		return new ClimateIntentAndAnswer(climateServices, messageContext);
 	}
 
 	@Bean
-	public ClimateDateQuestionAndAnswer climateDateQuestionAndAnswer(MessageContext messageContext,
-																	 ClimateServices climateServices){
-		return new ClimateDateQuestionAndAnswer(messageContext, climateServices);
+	public ClimateSpecificIntentAndAnswer climateSpecificQuestionAndAnswer(MessageContext messageContext){
+		return new ClimateSpecificIntentAndAnswer(messageContext);
 	}
 
 	@Bean
-	public ClimateLocationQuestionAndAnswer climateDateLocationQuestion(ClimateServices climateServices,
-																		MessageContext messageContext){
-		return new ClimateLocationQuestionAndAnswer(climateServices, messageContext);
+	public ClimateFlowIntentAndAnswer climateDateQuestionAndAnswer(MessageContext messageContext,
+																   ClimateServices climateServices){
+		return new ClimateFlowIntentAndAnswer(messageContext, climateServices);
 	}
 
 	@Bean
-	public ClimateDateAndLocationQuestionAndAnswer climateDateAndLocation(ClimateServices climateServices){
-		return new ClimateDateAndLocationQuestionAndAnswer(climateServices);
+	public HelpIntentAndAnswer helpIntentAndAnswer(){
+		return new HelpIntentAndAnswer();
 	}
 
 	@Bean
-	public QuestionsAndAnswers questionsAndAnswers(AgeQuestionAndAnswer ageQuestionAndAnswer,
-												   NameQuestionAndAnswer nameQuestionAndAnswer,
-												   GreetingsQuestionsAndAnswers greetingsQuestionsAndAnswers,
-												   ClimateQuestionAndAnswer climateQuestionAndAnswer,
-												   ClimateSpecificQuestionAndAnswer climateSpecificQuestionAndAnswer,
-												   ClimateDateQuestionAndAnswer climateDateQuestionAndAnswer,
-												   ClimateLocationQuestionAndAnswer climateLocationQuestionAndAnswer,
-												   ClimateDateAndLocationQuestionAndAnswer climateDateAndLocation){
+	public GetOutOfTheFlowIntentAndAnswer getOutOfTheFlowIntentAndAnswer(MessageContext messageContext){
+		return new GetOutOfTheFlowIntentAndAnswer(messageContext);
+	}
+
+	@Bean
+	public IntentsAndAnswers questionsAndAnswers(AgeIntentAndAnswer ageIntentAndAnswer,
+												 NameIntentAndAnswer nameIntentAndAnswer,
+												 GreetingsIntentAndAnswer greetingsIntentAndAnswer,
+												 ClimateIntentAndAnswer climateIntentAndAnswer,
+												 ClimateSpecificIntentAndAnswer climateSpecificIntentAndAnswer,
+												 ClimateFlowIntentAndAnswer climateFlowIntentAndAnswer,
+												 GetOutOfTheFlowIntentAndAnswer getOutOfTheFlowIntentAndAnswer,
+												 HelpIntentAndAnswer helpIntentAndAnswer){
 
 		List<Question> answersAndQuestions = new ArrayList<>();
 
-		answersAndQuestions.add(ageQuestionAndAnswer);
-		answersAndQuestions.add(nameQuestionAndAnswer);
-		answersAndQuestions.add(greetingsQuestionsAndAnswers);
-		answersAndQuestions.add(climateQuestionAndAnswer);
-		answersAndQuestions.add(climateSpecificQuestionAndAnswer);
-		answersAndQuestions.add(climateDateQuestionAndAnswer);
-		answersAndQuestions.add(climateLocationQuestionAndAnswer);
-		answersAndQuestions.add(climateDateAndLocation);
+		answersAndQuestions.add(getOutOfTheFlowIntentAndAnswer);
+		answersAndQuestions.add(helpIntentAndAnswer);
+		answersAndQuestions.add(ageIntentAndAnswer);
+		answersAndQuestions.add(nameIntentAndAnswer);
+		answersAndQuestions.add(greetingsIntentAndAnswer);
+		answersAndQuestions.add(climateIntentAndAnswer);
+		answersAndQuestions.add(climateSpecificIntentAndAnswer);
+		answersAndQuestions.add(climateFlowIntentAndAnswer);
 
-		return new QuestionsAndAnswers(answersAndQuestions);
+		return new IntentsAndAnswers(answersAndQuestions);
 	}
 
 	@Bean
 	public BotServices botServices(RestTemplate restTemplate, DialogflowServices dialogflowServices,
-								   QuestionsAndAnswers questionsAndAnswers){
-		return new BotServices(restTemplate, dialogflowServices, questionsAndAnswers);
+								   IntentsAndAnswers intentsAndAnswers){
+		return new BotServices(restTemplate, dialogflowServices, intentsAndAnswers);
 	}
 
 	@Bean

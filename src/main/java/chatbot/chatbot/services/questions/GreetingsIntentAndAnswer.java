@@ -4,11 +4,11 @@ import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 import chatbot.chatbot.manager.MessageContext;
 
-public class GreetingsQuestionsAndAnswers implements Question {
+public class GreetingsIntentAndAnswer implements Question {
 
     private final MessageContext messageContext;
 
-    public GreetingsQuestionsAndAnswers(MessageContext messageContext){
+    public GreetingsIntentAndAnswer(MessageContext messageContext){
         this.messageContext = messageContext;
     }
 

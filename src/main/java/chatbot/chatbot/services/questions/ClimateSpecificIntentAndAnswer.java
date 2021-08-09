@@ -4,11 +4,11 @@ import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 import chatbot.chatbot.manager.MessageContext;
 
-public class ClimateSpecificQuestionAndAnswer implements Question {
+public class ClimateSpecificIntentAndAnswer implements Question {
 
     private final MessageContext messageContext;
 
-    public ClimateSpecificQuestionAndAnswer(MessageContext messageContext){
+    public ClimateSpecificIntentAndAnswer(MessageContext messageContext){
         this.messageContext = messageContext;
     }
 

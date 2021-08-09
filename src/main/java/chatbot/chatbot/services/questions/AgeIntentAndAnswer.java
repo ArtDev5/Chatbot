@@ -4,11 +4,11 @@ import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
 import chatbot.chatbot.manager.MessageContext;
 
-public class AgeQuestionAndAnswer implements Question {
+public class AgeIntentAndAnswer implements Question {
 
     private final MessageContext messageContext;
 
-    public AgeQuestionAndAnswer(MessageContext messageContext){
+    public AgeIntentAndAnswer(MessageContext messageContext){
         this.messageContext = messageContext;
     }
 
