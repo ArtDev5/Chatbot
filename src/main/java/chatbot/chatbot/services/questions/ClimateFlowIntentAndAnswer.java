@@ -11,12 +11,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-public class ClimateFlow implements Question {
+public class ClimateFlowIntentAndAnswer implements Question {
 
     private final MessageContext messageContext;
     private final ClimateServices climateServices;
 
-    public ClimateFlow(MessageContext messageContext, ClimateServices climateServices){
+    public ClimateFlowIntentAndAnswer(MessageContext messageContext, ClimateServices climateServices){
         this.messageContext = messageContext;
         this.climateServices = climateServices;
     }
@@ -29,7 +29,8 @@ public class ClimateFlow implements Question {
         String flag = messageContext.getContextData(userId, "flag");
 
         return flag.equals("climate") && intent.equals("ClimateSpecific - Date") ||
-                flag.equals("climate") && intent.equals("ClimateSpecific - Location");
+                flag.equals("climate") && intent.equals("ClimateSpecific - Location") ||
+                flag.equals("climate") && intent.equals("ClimateSpecific - DateAndLocation");
     }
 
     @Override
@@ -41,9 +42,19 @@ public class ClimateFlow implements Question {
         String userId = messageEntity.getUserId();
         String answer = "Erro no flow do climate";
 
+        if(intent.equals("ClimateSpecific - DateAndLocation")){
+            String userCity = entities.get("city");
+            String userDate = entities.get("date");
+            String formattedDate = getFormattedDate(userDate);
+
+            messageContext.setContextData(userId, "date", formattedDate);
+            messageContext.setContextData(userId, "city", userCity);
+            answer = "Ok";
+        }
+
         if(intent.equals("ClimateSpecific - Date")){
             String date = entities.get("date");
-            String formattedDate = getDateFormatted(date);
+            String formattedDate = getFormattedDate(date);
 
             String dateInContext = messageContext.getContextData(userId, "date");
 
@@ -89,7 +100,7 @@ public class ClimateFlow implements Question {
         return "";
     }
 
-    private String getDateFormatted(String currentDate){
+    private String getFormattedDate(String currentDate){
         try {
 
             SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
