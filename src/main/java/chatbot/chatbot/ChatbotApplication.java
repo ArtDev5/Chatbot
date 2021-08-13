@@ -3,7 +3,7 @@ package chatbot.chatbot;
 import chatbot.chatbot.climate.ClimateServices;
 import chatbot.chatbot.dialogflow.DialogflowServices;
 import chatbot.chatbot.interfaces.Question;
-import chatbot.chatbot.manager.MessageContext;
+import chatbot.chatbot.manager.ContextManagerImpl;
 import chatbot.chatbot.services.BotServices;
 import chatbot.chatbot.services.questions.*;
 import org.springframework.boot.SpringApplication;
@@ -38,34 +38,34 @@ public class ChatbotApplication {
 	}
 
 	@Bean
-	public AgeIntentAndAnswer ageQuestionAndAnswer(MessageContext messageContext){
-		return new AgeIntentAndAnswer(messageContext);
+	public AgeIntentAndAnswer ageQuestionAndAnswer(ContextManagerImpl contextManagerImpl){
+		return new AgeIntentAndAnswer(contextManagerImpl);
 	}
 
 	@Bean
-	public NameIntentAndAnswer nameQuestionAndAnswer(MessageContext messageContext){
-		return new NameIntentAndAnswer(messageContext);
+	public NameIntentAndAnswer nameQuestionAndAnswer(ContextManagerImpl contextManagerImpl){
+		return new NameIntentAndAnswer(contextManagerImpl);
 	}
 
 	@Bean
-	public GreetingsIntentAndAnswer greetingsQuestionsAndAnswers(MessageContext messageContext){
-		return new GreetingsIntentAndAnswer(messageContext);
+	public GreetingsIntentAndAnswer greetingsQuestionsAndAnswers(ContextManagerImpl contextManagerImpl){
+		return new GreetingsIntentAndAnswer(contextManagerImpl);
 	}
 	@Bean
 	public ClimateIntentAndAnswer climateQuestionAndAnswer(ClimateServices climateServices,
-														   MessageContext messageContext){
-		return new ClimateIntentAndAnswer(climateServices, messageContext);
+														   ContextManagerImpl contextManagerImpl){
+		return new ClimateIntentAndAnswer(climateServices, contextManagerImpl);
 	}
 
 	@Bean
-	public ClimateSpecificIntentAndAnswer climateSpecificQuestionAndAnswer(MessageContext messageContext){
-		return new ClimateSpecificIntentAndAnswer(messageContext);
+	public ClimateSpecificIntentAndAnswer climateSpecificQuestionAndAnswer(ContextManagerImpl contextManagerImpl){
+		return new ClimateSpecificIntentAndAnswer(contextManagerImpl);
 	}
 
 	@Bean
-	public ClimateFlowIntentAndAnswer climateDateQuestionAndAnswer(MessageContext messageContext,
-																   ClimateServices climateServices){
-		return new ClimateFlowIntentAndAnswer(messageContext, climateServices);
+	public ClimateFlowIntentAndAnswer climateDateQuestionAndAnswer(ContextManagerImpl contextManagerImpl,
+                                                                   ClimateServices climateServices){
+		return new ClimateFlowIntentAndAnswer(contextManagerImpl, climateServices);
 	}
 
 	@Bean
@@ -74,8 +74,8 @@ public class ChatbotApplication {
 	}
 
 	@Bean
-	public GetOutOfTheFlowIntentAndAnswer getOutOfTheFlowIntentAndAnswer(MessageContext messageContext){
-		return new GetOutOfTheFlowIntentAndAnswer(messageContext);
+	public GetOutOfTheFlowIntentAndAnswer getOutOfTheFlowIntentAndAnswer(ContextManagerImpl contextManagerImpl){
+		return new GetOutOfTheFlowIntentAndAnswer(contextManagerImpl);
 	}
 
 	@Bean
@@ -109,8 +109,8 @@ public class ChatbotApplication {
 	}
 
 	@Bean
-	public MessageContext messageContextTest(){
-		return new MessageContext();
+	public ContextManagerImpl messageContextTest(){
+		return new ContextManagerImpl();
 	}
 
 

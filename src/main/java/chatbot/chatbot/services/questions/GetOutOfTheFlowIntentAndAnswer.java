@@ -2,14 +2,14 @@ package chatbot.chatbot.services.questions;
 
 import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
-import chatbot.chatbot.manager.MessageContext;
+import chatbot.chatbot.manager.ContextManagerImpl;
 
 public class GetOutOfTheFlowIntentAndAnswer implements Question {
 
-    private final MessageContext messageContext;
+    private final ContextManagerImpl contextManagerImpl;
 
-    public GetOutOfTheFlowIntentAndAnswer(MessageContext messageContext){
-        this.messageContext = messageContext;
+    public GetOutOfTheFlowIntentAndAnswer(ContextManagerImpl contextManagerImpl){
+        this.contextManagerImpl = contextManagerImpl;
     }
     @Override
     public boolean verifyIntent(MessageEntity messageEntity) {
@@ -21,9 +21,9 @@ public class GetOutOfTheFlowIntentAndAnswer implements Question {
     public String getAnswer(MessageEntity messageEntity) {
         String userId = messageEntity.getUserId();
 
-        String flag = messageContext.getContextData(userId, "flag");
+        String flag = contextManagerImpl.getContextData(userId, "flag");
         if(!flag.equals("")){
-            messageContext.clearContext(userId);
+            contextManagerImpl.clearContext(userId);
             return "Ok, fluxo quebrado.";
         }else{
             return "Você precisa estar em um fluxo para poder utilizar essa função.";

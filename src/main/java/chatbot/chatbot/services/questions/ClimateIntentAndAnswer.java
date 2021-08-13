@@ -4,16 +4,16 @@ import chatbot.chatbot.climate.ClimateServices;
 import chatbot.chatbot.climate.ResponseClimate;
 import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
-import chatbot.chatbot.manager.MessageContext;
+import chatbot.chatbot.manager.ContextManagerImpl;
 
 public class ClimateIntentAndAnswer implements Question {
 
     private final ClimateServices climateServices;
-    private final MessageContext messageContext;
+    private final ContextManagerImpl contextManagerImpl;
 
-    public ClimateIntentAndAnswer(ClimateServices climateServices, MessageContext messageContext){
+    public ClimateIntentAndAnswer(ClimateServices climateServices, ContextManagerImpl contextManagerImpl){
         this.climateServices = climateServices;
-        this.messageContext = messageContext;
+        this.contextManagerImpl = contextManagerImpl;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class ClimateIntentAndAnswer implements Question {
         String intent = messageEntity.getIntent();
 
         String userId = messageEntity.getUserId();
-        String flag = messageContext.getContextData(userId, "flag");
+        String flag = contextManagerImpl.getContextData(userId, "flag");
 
         return intent.equals("Climate") && flag.equals("");
     }

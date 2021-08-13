@@ -2,14 +2,14 @@ package chatbot.chatbot.services.questions;
 
 import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
-import chatbot.chatbot.manager.MessageContext;
+import chatbot.chatbot.manager.ContextManagerImpl;
 
 public class AgeIntentAndAnswer implements Question {
 
-    private final MessageContext messageContext;
+    private final ContextManagerImpl contextManagerImpl;
 
-    public AgeIntentAndAnswer(MessageContext messageContext){
-        this.messageContext = messageContext;
+    public AgeIntentAndAnswer(ContextManagerImpl contextManagerImpl){
+        this.contextManagerImpl = contextManagerImpl;
     }
 
     @Override
@@ -17,7 +17,7 @@ public class AgeIntentAndAnswer implements Question {
         String intent = messageEntity.getIntent();
 
         String userId = messageEntity.getUserId();
-        String flag = messageContext.getContextData(userId, "flag");
+        String flag = contextManagerImpl.getContextData(userId, "flag");
 
         return intent.equals("Age") && flag.equals("");
     }

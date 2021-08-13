@@ -4,7 +4,6 @@ import chatbot.chatbot.dialogflow.DialogflowServices;
 import chatbot.chatbot.entities.EntitiesData;
 import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
-import chatbot.chatbot.manager.MessageContext;
 import chatbot.chatbot.messenger.ReceiveMessage;
 import chatbot.chatbot.messenger.ResponseEvent;
 import chatbot.chatbot.services.questions.IntentsAndAnswers;

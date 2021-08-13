@@ -4,7 +4,7 @@ import chatbot.chatbot.climate.ClimateServices;
 import chatbot.chatbot.climate.ResponseClimate;
 import chatbot.chatbot.entities.MessageEntity;
 import chatbot.chatbot.interfaces.Question;
-import chatbot.chatbot.manager.MessageContext;
+import chatbot.chatbot.manager.ContextManagerImpl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,19 +13,19 @@ import java.util.Map;
 
 public class ClimateFlowIntentAndAnswer implements Question {
 
-    private final MessageContext messageContext;
+    private final ContextManagerImpl contextManagerImpl;
     private final ClimateServices climateServices;
 
-    public ClimateFlowIntentAndAnswer(MessageContext messageContext, ClimateServices climateServices){
-        this.messageContext = messageContext;
+    public ClimateFlowIntentAndAnswer(ContextManagerImpl contextManagerImpl, ClimateServices climateServices){
+        this.contextManagerImpl = contextManagerImpl;
         this.climateServices = climateServices;
     }
 
     @Override
     public boolean verifyIntent(MessageEntity messageEntity) {
         String userId = messageEntity.getUserId();
-        String flag = messageContext.getContextData(userId, "flag");
-        
+        String flag = contextManagerImpl.getContextData(userId, "flag");
+
         return flag.equals("climate");
     }
 
@@ -41,30 +41,30 @@ public class ClimateFlowIntentAndAnswer implements Question {
         String userDate = entities.get("date");
 
         if(userCity != null){
-            String cityInContext = messageContext.getContextData(userId, "city");
+            String cityInContext = contextManagerImpl.getContextData(userId, "city");
 
             if(!cityInContext.equals("")){
                 answer = "Local já foi informado. Informe o dia.";
             }else{
                 answer = "Salvo. Agora informe o dia.";
-                messageContext.setContextData(userId, "city", userCity);
+                contextManagerImpl.setContextData(userId, "city", userCity);
             }
         }
 
         if(userDate != null){
-            String dateInContext = messageContext.getContextData(userId, "date");
+            String dateInContext = contextManagerImpl.getContextData(userId, "date");
 
             if(!dateInContext.equals("")){
                 answer = "Dia já foi informado. Informe o local";
             }else{
                 answer = "Salvo. Agora informe o local";
                 String formattedDate = formattedDate = getFormattedDate(userDate);
-                messageContext.setContextData(userId, "date", formattedDate);
+                contextManagerImpl.setContextData(userId, "date", formattedDate);
             }
         }
 
-        String date = messageContext.getContextData(userId, "date");
-        String city = messageContext.getContextData(userId, "city");
+        String date = contextManagerImpl.getContextData(userId, "date");
+        String city = contextManagerImpl.getContextData(userId, "city");
 
         String verifiedAnswers = verifyAnswers(userId, date, city);
 
@@ -84,9 +84,9 @@ public class ClimateFlowIntentAndAnswer implements Question {
     }
 
     private void deleteDataFromUserContext(String userId){
-        messageContext.deleteContextData(userId, "date");
-        messageContext.deleteContextData(userId, "city");
-        messageContext.deleteContextData(userId, "flag");
+        contextManagerImpl.deleteContextData(userId, "date");
+        contextManagerImpl.deleteContextData(userId, "city");
+        contextManagerImpl.deleteContextData(userId, "flag");
     }
 
     private String getFormattedDate(String currentDate){
